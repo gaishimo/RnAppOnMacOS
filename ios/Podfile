@@ -20,6 +20,9 @@ target 'MacOSExample' do
   use_flipper!
   post_install do |installer|
     flipper_post_install(installer)
+    installer.pods_project.build_configurations.each do |build_configuration|
+      build_configuration.build_settings['ONLY_ACTIVE_ARCH'] = 'No'
+    end
   end
 end
 
