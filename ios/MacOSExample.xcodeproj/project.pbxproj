@@ -134,7 +134,6 @@
 				AA4D667608B2CAA8D29C2C85 /* Pods-MacOSExample-tvOSTests.debug.xcconfig */,
 				8636C1DC9D8FF88C3A9EF7C8 /* Pods-MacOSExample-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -858,7 +857,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
