@@ -6,22 +6,44 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {StyleSheet, View, StatusBar, useWindowDimensions} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  useWindowDimensions,
+  Dimensions,
+  Platform,
+} from 'react-native';
 
 const COLORS = ['#5EF2FE', '#66FF85', '#ECFF66'];
 
 const App: () => React$Node = () => {
-  const dimensions = useWindowDimensions();
-  const direction = dimensions.width > dimensions.height ? 'row' : 'column';
+  // const dimensions = useWindowDimensions();
+  const dimensions = Dimensions.get('window');
   console.log('width:', dimensions.width, 'height:', dimensions.height);
 
+  console.log('Platform.OS:', Platform.OS);
+
+  const [windowSize, setWindowSize] = useState(dimensions);
+  const onLayout = useCallback(
+    (event) => {
+      const {width, height} = event.nativeEvent.layout;
+      setWindowSize({width, height});
+    },
+    [setWindowSize],
+  );
+
+  const direction = windowSize.width > windowSize.height ? 'row' : 'column';
   const radius =
-    direction === 'row' ? dimensions.width * 0.05 : dimensions.height * 0.05;
+    direction === 'row' ? windowSize.width * 0.05 : windowSize.height * 0.05;
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <View style={[styles.page, {flexDirection: 'row'}]}>
+      <View
+        onLayout={onLayout}
+        style={[styles.page, {flexDirection: direction}]}>
         {[0, 1, 2].map((i) => (
           <View
             key={i}
